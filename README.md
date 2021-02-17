@@ -1,2 +1,2 @@
-# ssh
-Enable Allow2Automate the ability to use ssh to configure devices
+# wemo
+Enable Allow2Automate the ability to control wemo devices
