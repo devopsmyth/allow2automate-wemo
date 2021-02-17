@@ -1,0 +1,19 @@
+{
+  "name": "wemo",
+  "version": "1.0.0",
+  "description": "Enable Allow2Automate the ability to control wemo devices",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Allow2/allow2automate-wemo"
+  },
+  "allow2Token":"fkdMSjd6LPhWfrHR",
+  "keywords" : [
+    "allow2automate", "allow2", "wemo"
+  ],
+  "author": "Allow2",
+  "license": "ISC"
+}
