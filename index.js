@@ -22,7 +22,7 @@ module.exports = function(context, callback) {
     };
 
     wemo.blocked = function(user, callback) {
-
+	// todo
     };
 
     wemo.teardown = function(callback) {

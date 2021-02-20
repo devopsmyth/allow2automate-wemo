@@ -1,6 +1,6 @@
 {
   "name": "allow2automate-wemo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Enable Allow2Automate the ability to control wemo devices",
   "main": "./index.js",
   "scripts": {
