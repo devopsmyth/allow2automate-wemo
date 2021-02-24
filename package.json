@@ -11,10 +11,16 @@
     "type": "git",
     "url": "https://github.com/Allow2/allow2automate-wemo"
   },
-  "allow2Token":"2ndlJj1Mg2Pw8iHi",
-  "keywords" : [
-    "allow2automate", "allow2", "wemo"
+  "allow2Token": "2ndlJj1Mg2Pw8iHi",
+  "keywords": [
+    "allow2automate",
+    "allow2",
+    "wemo"
   ],
   "author": "Allow2",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "create-react-class": "^15.7.0",
+    "react": "^17.0.1"
+  }
 }

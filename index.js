@@ -14,20 +14,22 @@
 //
 
 'use strict';
+const TabContent = require('./Components/TabContent.js');
 
-module.exports = function(context, callback) {
+module.exports = function(context) {
 
     var wemo = {
-        allow2: context.allow2
+        test: '3',
+        TabContent: TabContent
     };
 
     wemo.blocked = function(user, callback) {
-	// todo
+	    // todo
     };
 
     wemo.teardown = function(callback) {
         callback(null);
     };
 
-    return callback(null, wemo);
+    return wemo;
 };
