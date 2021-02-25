@@ -14,9 +14,9 @@
 //
 
 'use strict';
-const TabContent = require('./Components/TabContent.js');
+import TabContent from './Components/TabContent.js';
 
-module.exports = function(context) {
+export default function(context) {
 
     var wemo = {
         test: '3',
@@ -25,6 +25,7 @@ module.exports = function(context) {
 
     wemo.blocked = function(user, callback) {
 	    // todo
+        console.log(context);
     };
 
     wemo.teardown = function(callback) {

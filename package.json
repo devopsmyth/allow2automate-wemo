@@ -3,9 +3,12 @@
   "shortName": "wemo",
   "version": "0.0.4",
   "description": "Enable Allow2Automate the ability to control wemo devices",
-  "main": "./index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "mkdir dist",
+    "prebuild": "npm run clean && npm run init",
+    "build": "babel src -d dist",
+    "clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,15 @@
   "dependencies": {
     "create-react-class": "^15.7.0",
     "react": "^17.0.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/preset-react": "^7.12.13"
   }
 }

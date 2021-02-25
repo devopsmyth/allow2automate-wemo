@@ -14,8 +14,7 @@
 //
 'use strict';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
+import React, { Component, PropTypes } from 'react';
 
 // import Dialogs from 'dialogs';
 // import RaisedButton from 'material-ui/RaisedButton';
@@ -26,7 +25,7 @@ var createReactClass = require('create-react-class');
 
 // var dialogs = Dialogs({});
 
-exports = module.exports = createReactClass({
+export default class TabContent extends Component {
     // static propTypes = {
     //     onLogin: PropTypes.func.isRequired
     // };
@@ -43,7 +42,7 @@ exports = module.exports = createReactClass({
     //     };
     // },
 
-    render: function() {
+    render() {
         if (!this.props || !this.props.plugin) {
             console.log('damn!');
         }
@@ -51,10 +50,12 @@ exports = module.exports = createReactClass({
         const plugin = this.props.plugin;
         console.log('plugin props', this.props, plugin.name);
         return (
-            React.createElement(div, {}, "yay")
+            <div>
+                yay
+            </div>
         );
     }
-});
+}
 
 //     { devices.supported.length < 1 &&
 //     <div style={{ textAlign: "center" }}>
