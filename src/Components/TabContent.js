@@ -25,14 +25,9 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
+import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
 import {deviceTokens, deviceImages} from '../constants';
-
-// import Dialogs from 'dialogs';
-// import RaisedButton from 'material-ui/RaisedButton';
-// import TextField from 'material-ui/TextField';
-// import Avatar from 'material-ui/Avatar';
-// import AppBar from 'material-ui/AppBar';
-// import Person from 'material-ui/svg-icons/social/person';
 
 // var dialogs = Dialogs({});
 
@@ -115,7 +110,7 @@ export default createReactClass({
         var pairings = {};
         const allow2 = this.props.allow2;
         // get the data set, this plugin only uses one data set
-        Object.entries(this.props.data || {}).forEach(([value, index]) => {
+        Object.entries(this.props.data || {}).forEach(([index, value]) => {
             console.log('entries', value, index);
             key = index;
             savedDevices = value.devices || {};
@@ -181,12 +176,12 @@ export default createReactClass({
                                             }
                                         </TableRowColumn>
                                         <TableRowColumn style={{textAlign: 'center'}}>
-                                            <Checkbox
+                                            Checkbox
                                                 label=''
                                                 isChecked={device.state}
                                                 isDisabled={!token || device.active ? true : false}
                                                 handleCheckboxChange={this.toggleCheckbox.bind(this, device)}
-                                            />
+
                                         </TableRowColumn>
                                         <TableRowColumn style={{textAlign: 'right'}}>
                                             { child &&
