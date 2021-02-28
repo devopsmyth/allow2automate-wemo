@@ -24,10 +24,13 @@
   "license": "Apache-2.0",
   "dependencies": {
     "create-react-class": "^15.7.0",
-    "react": "^17.0.1"
+    "material-ui": "^0.20.2",
+    "react": "^17.0.1",
+    "wemo-client": "^0.15.0"
   },
   "files": [
-    "dist"
+    "dist",
+    "img"
   ],
   "devDependencies": {
     "@babel/cli": "^7.13.0",
