@@ -25,15 +25,19 @@
   "dependencies": {
     "create-react-class": "^15.7.0",
     "material-ui": "^0.20.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
     "wemo-client": "^0.15.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "files": [
     "dist",
     "img"
   ],
   "devDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "@babel/cli": "^7.13.0",
     "@babel/core": "^7.13.1",
     "@babel/preset-env": "^7.13.5",

@@ -1,28 +1,54 @@
 const path = require("path")
 
+// This is where we define the Inline magic.
+// This loader will turn all .svg, .jpg and .png files
+// into something that can be inlined in the final bundle
+const fileRules = {
+    test: /\.(svg|jpg|png)$/,
+    use: [
+        {
+            loader: "url-loader",
+            options: {
+                // All files no matter what size
+                limit: Infinity,
+            },
+        },
+    ],
+};
+
+// Pretty standard babel configurations for modern react apps
+const jsRules = {
+    test: /\.jsx?$/,
+    exclude: /node_modules/,
+    use: {
+        loader: "babel-loader",
+        options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+        },
+    },
+};
+
 const config = {
     entry: path.resolve(__dirname, "index.js"),
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: 'index_bundle.js',
+        filename: 'index.js',
         library: "$",
         libraryTarget: "umd"
     },
     module: {
-        loaders: [
-            {
-                loader: 'babel-loader',
-                test: /\.js$/,
-                exclude: /node_modules/,
-                query: {
-                    presets: [
-                        '@babel/preset-env',
-                        '@babel/preset-react'
-                    ]
-                }
-            }
-        ]
+        rules: [jsRules, fileRules]
     },
+
+    // Manually tell webpack about our "peerDependencies"
+    // that should not be included in the final bundle and
+    // will be provided by the Component Consumer, like an Application
+    externals: [
+        "react",
+        "react-dom",
+        "create-react-class"
+    ],
+
     resolve: {
         extensions: ['.js']
     }

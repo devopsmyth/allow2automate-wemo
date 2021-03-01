@@ -147,58 +147,8 @@ export default createReactClass({
                         displayRowCheckbox={false}
                         showRowHover={true}
                         stripedRows={true}>
-                        { devices.supported.map(function (device) {
-                                let token = deviceTokens[device.device.device.modelName];
-                                let imageName = deviceImages[device.device.device.modelName];
-                                let paired = pairings[device.device.UDN];
-                                let child = paired && paired.ChildId && this.props.children[paired.ChildId];
-                                let detail = child ? (
-                                    <b>{child.name}</b>
-                                ) : <b>Paired</b>;
-                                let url = child && allow2.avatarURL(null, child);
-                                return (
-                                    <TableRow
-                                        key={device.device.UDN}
-                                        selectable={false}>
-                                        <TableRowColumn>
-                                            { imageName &&
-                                            <img width="40" height="40"
-                                                 src={ path.join(this.props.pluginPath, 'img', imageName + '.png') }/>
-                                            }
-                                        </TableRowColumn>
-                                        <TableRowColumn>
-                                            { token &&
-                                            <span>{ device.device.device.friendlyName }</span>
-                                            }
-                                            { !token &&
-                                            <span><i
-                                                style={{ color: '#555555' }}>{ device.device.device.friendlyName }</i></span>
-                                            }
-                                        </TableRowColumn>
-                                        <TableRowColumn style={{textAlign: 'center'}}>
-                                            Checkbox
-                                                label=''
-                                                isChecked={device.state}
-                                                isDisabled={!token || device.active ? true : false}
-                                                handleCheckboxChange={this.toggleCheckbox.bind(this, device)}
 
-                                        </TableRowColumn>
-                                        <TableRowColumn style={{textAlign: 'right'}}>
-                                            { child &&
-                                            <Avatar src={url}/>
-                                            }
-                                        </TableRowColumn>
-                                        <TableRowColumn style={{textAlign: 'left'}}>
-                                            { paired && detail }
-                                            { !paired &&
-                                            <FlatButton label="Assign"
-                                                        onClick={this.assign.bind(this, device.device, token)}/>
-                                            }
-                                        </TableRowColumn>
-                                    </TableRow>
-                                );
-                            }.bind(this)
-                        )}
+
                     </TableBody>
                 </Table>
                 }
@@ -207,38 +157,7 @@ export default createReactClass({
                 <div>
                     <h2>Unsupported Devices</h2>
                     If you would like any of these devices supported, please contact us at support@allow2.com.
-                    <div>
-                        <Table>
-                            <TableBody
-                                displayRowCheckbox={false}
-                                showRowHover={false}
-                                stripedRows={true}>
-                                {devices.notSupported.map((device) => {
-                                    let imageName = deviceImages[device.device.device.modelName];
-                                    return (
-                                        <TableRow key={device.device.UDN}
-                                                  selectable={false}>
-                                            <TableRowColumn>
-                                                {imageName &&
-                                                <img width="40" height="40" src={'assets/img/' + imageName + '.png'}/>
-                                                }
-                                            </TableRowColumn>
-                                            <TableRowColumn>
-                                                {device.device.device.friendlyName}
-                                            </TableRowColumn>
-                                            <TableRowColumn>
-                                                {device.device.device.modelName}
-                                            </TableRowColumn>
-                                            <TableRowColumn>
-                                                {device.device.device.modelNumber}
-                                            </TableRowColumn>
-                                        </TableRow>
-                                    );
-                                })
-                                }
-                            </TableBody>
-                        </Table>
-                    </div>
+
                 </div>
                 }
             </div>
