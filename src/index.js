@@ -16,7 +16,9 @@
 'use strict';
 import TabContent from './Components/TabContent.js';
 
-export default function(context) {
+console.log(process.env.NODE_PATH);
+
+export function plugin(context) {
 
     var wemo = {
         test: '3',
@@ -33,4 +35,4 @@ export default function(context) {
     };
 
     return wemo;
-};
+}

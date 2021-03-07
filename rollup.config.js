@@ -44,5 +44,5 @@ export default {
             }
         ]
     ],
-    external: ['react', 'react-dom', '@material-ui/core', /@babel\/runtime/]
+    external: Object.keys(pkg.peerDependencies || {})
 }

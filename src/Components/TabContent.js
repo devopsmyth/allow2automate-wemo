@@ -14,20 +14,17 @@
 //
 'use strict';
 
-import React, { Component /*, PropTypes*/ } from 'react';
+import React, { Component } from 'react';
 //import createReactClass from 'create-react-class';
 import path from 'path';
-import {
-    Table,
-    TableBody,
-    // TableHeader,
-    // TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-} from '@material-ui/core/Table';
-//import Button from '@material-ui/core/Button
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Button from '@material-ui/core/Button';
 // import Avatar from '@material-ui/core/Avatar';
 import {deviceTokens, deviceImages} from '../constants';
+import Checkbox from './Checkbox';
 
 // var dialogs = Dialogs({});
 
@@ -133,6 +130,7 @@ class TabContent extends Component {
         console.log('wemo TabContent', key, devices, pairings);
 
         const plugin = this.props.plugin;
+        // const Checkbox = this.props.Checkbox;
         return (
             <div>
                 { devices.supported.length < 1 &&
@@ -143,10 +141,7 @@ class TabContent extends Component {
                 }
                 { devices.supported.length > 0 &&
                 <Table>
-                    <TableBody
-                        displayRowCheckbox={false}
-                        showRowHover={true}
-                        stripedRows={true}>
+                    <TableBody>
                         { devices.supported.map(function (device) {
                                 let token = deviceTokens[device.device.device.modelName];
                                 let imageName = deviceImages[device.device.device.modelName];
@@ -157,16 +152,14 @@ class TabContent extends Component {
                                 ) : <b>Paired</b>;
                                 let url = child && allow2.avatarURL(null, child);
                                 return (
-                                    <TableRow
-                                        key={device.device.UDN}
-                                        selectable={false}>
-                                        <TableRowColumn>
+                                    <TableRow key={device.device.UDN}>
+                                        <TableCell>
                                             { imageName &&
                                             <img width="40" height="40"
                                                  src={ path.join(this.props.pluginPath, 'img', imageName + '.png') }/>
                                             }
-                                        </TableRowColumn>
-                                        <TableRowColumn>
+                                        </TableCell>
+                                        <TableCell>
                                             { token &&
                                             <span>{ device.device.device.friendlyName }</span>
                                             }
@@ -174,27 +167,26 @@ class TabContent extends Component {
                                             <span><i
                                                 style={{ color: '#555555' }}>{ device.device.device.friendlyName }</i></span>
                                             }
-                                        </TableRowColumn>
-                                        <TableRowColumn style={{textAlign: 'center'}}>
-                                            Checkbox
+                                        </TableCell>
+                                        <TableCell style={{textAlign: 'center'}}>
+                                            <Checkbox
                                             label=''
                                             isChecked={device.state}
                                             isDisabled={!token || device.active ? true : false}
-                                            handleCheckboxChange={this.toggleCheckbox.bind(this, device)}
-
-                                        </TableRowColumn>
-                                        <TableRowColumn style={{textAlign: 'right'}}>
+                                            handleCheckboxChange={this.toggleCheckbox.bind(this, device)} />
+                                        </TableCell>
+                                        <TableCell style={{textAlign: 'right'}}>
                                             { child &&
                                             <Avatar src={url}/>
                                             }
-                                        </TableRowColumn>
-                                        <TableRowColumn style={{textAlign: 'left'}}>
+                                        </TableCell>
+                                        <TableCell style={{textAlign: 'left'}}>
                                             { paired && detail }
                                             { !paired &&
                                             <Button label="Assign"
                                                     onClick={this.assign.bind(this, device.device, token)}/>
                                             }
-                                        </TableRowColumn>
+                                        </TableCell>
                                     </TableRow>
                                 );
                             }.bind(this)
@@ -209,29 +201,25 @@ class TabContent extends Component {
                     If you would like any of these devices supported, please contact us at support@allow2.com.
                     <div>
                         <Table>
-                            <TableBody
-                                displayRowCheckbox={false}
-                                showRowHover={false}
-                                stripedRows={true}>
+                            <TableBody>
                                 {devices.notSupported.map((device) => {
                                     let imageName = deviceImages[device.device.device.modelName];
                                     return (
-                                        <TableRow key={device.device.UDN}
-                                                  selectable={false}>
-                                            <TableRowColumn>
+                                        <TableRow key={device.device.UDN}>
+                                            <TableCell>
                                                 {imageName &&
                                                 <img width="40" height="40" src={'assets/img/' + imageName + '.png'}/>
                                                 }
-                                            </TableRowColumn>
-                                            <TableRowColumn>
+                                            </TableCell>
+                                            <TableCell>
                                                 {device.device.device.friendlyName}
-                                            </TableRowColumn>
-                                            <TableRowColumn>
+                                            </TableCell>
+                                            <TableCell>
                                                 {device.device.device.modelName}
-                                            </TableRowColumn>
-                                            <TableRowColumn>
+                                            </TableCell>
+                                            <TableCell>
                                                 {device.device.device.modelNumber}
-                                            </TableRowColumn>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })
