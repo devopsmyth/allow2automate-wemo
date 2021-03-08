@@ -42,26 +42,32 @@ class TabContent extends Component {
     // },
 
     toggleCheckbox(device, isChecked) {
-        // this.props.onDeviceActive( device.device.UDN, true );
+        //this.props.onDeviceActive( device.device.UDN, true );
+        this.props.configurationUpdate();
         this.props.ipc.send('setBinaryState', {
             UDN: device.device.UDN,
             state: isChecked ? 1 : 0
         });
     }
 
-    // componentDidMount: () => {
-    //     this.props.ipc.on('setBinaryStateResponse', function (event, UDN, err, response) {
-    //         let device = this.props.devices[UDN];
-    //         this.props.onDeviceActive(UDN, false);
-    //         if (err || ( response.BinaryState == undefined )) {
-    //             return;
-    //         }
-    //         device.active = false;
-    //         device.state = ( response.BinaryState != '0' );
-    //         this.props.onDeviceUpdate({[UDN]: device});
-    //     }.bind(this));
-    // };
+    constructor(...args) {
+        super(...args);
 
+        // this.state = {
+        //     currentTab: 'Allow2AutomateSettingsTab'
+        // };
+        this.props.ipc.on('setBinaryStateResponse', function (event, UDN, err, response) {
+            console.log('setBinaryStateResponse', event, UDN, err, response);
+            // let device = this.props.devices[UDN];
+            // this.props.onDeviceActive(UDN, false);
+            // if (err || ( response.BinaryState == undefined )) {
+            //     return;
+            // }
+            // device.active = false;
+            // device.state = ( response.BinaryState != '0' );
+            // this.props.onDeviceUpdate({[UDN]: device});
+        }.bind(this));
+    };
 
     assign(device, token) {
         //let onPaired = this.props.onPaired;

@@ -13,26 +13,63 @@
 // limitations under the License.
 //
 
+//
+// designed to really only be used from the main process (though the renderer also loads this module in order to load the TabContent component).
+//
 'use strict';
 import TabContent from './Components/TabContent.js';
+import Wemo from './Wemo';
 
-console.log(process.env.NODE_PATH);
-
-export function plugin(context) {
+function plugin(context) {
 
     var wemo = {
-        test: '3',
-        TabContent: TabContent
+        test: '3'
     };
 
-    wemo.blocked = function(user, callback) {
-	    // todo
-        console.log(context);
+    var devices = null;
+
+    //
+    // onLoad (optional): called on the main process when this plugin is loaded
+    //
+    wemo.onLoad = function() {
+        console.log('wemo.onload');
+        devices = new Wemo({
+            onDeviceUpdate: (data) => {
+                console.log('deviceUpdate', data);
+                //deviceUpdate(data);
+                //context.configurationUpdate();
+            }
+        });
+        context.ipc.on('setBinaryState', function(event, params) {
+            console.log('setBinaryState', params);
+            devices.setBinaryState(params.UDN, params.state, function(err, response) {
+                console.log('response:', params.UDN, response);
+                event.sender.send('setBinaryStateResponse', params.UDN, err, response);
+            }.bind(this));
+        });
     };
 
-    wemo.teardown = function(callback) {
+    //
+    // onSetEnabled (optional): called by the electron main process when this plugin is enabled/disabled
+    //
+    wemo.onSetEnabled = function(enabled) {
+        console.log('wemo.onSetEnabled', enabled);
+        // nop
+    };
+
+    //
+    // onUnload (optional): called if the user is (removing) deleting the plugin, use this to clean up before the plugin disappears
+    //
+    wemo.onUnload = function(callback) {
+        console.log('wemo.onUnload');
+        // nop
         callback(null);
     };
 
     return wemo;
 }
+
+module.exports = {
+    plugin,
+    TabContent
+};
