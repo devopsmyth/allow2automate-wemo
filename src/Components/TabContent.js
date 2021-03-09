@@ -15,7 +15,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-//import createReactClass from 'create-react-class';
+
 import path from 'path';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -28,7 +28,6 @@ import Checkbox from './Checkbox';
 
 // var dialogs = Dialogs({});
 
-//export default createReactClass({
 class TabContent extends Component {
     // static propTypes = {
     //     onLogin: PropTypes.func.isRequired

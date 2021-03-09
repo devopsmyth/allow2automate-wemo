@@ -17,7 +17,7 @@
 // designed to really only be used from the main process (though the renderer also loads this module in order to load the TabContent component).
 //
 'use strict';
-import TabContent from './Components/TabContent.js';
+import TabContent from './Components/TabContent';
 import Wemo from './Wemo';
 
 function plugin(context) {
