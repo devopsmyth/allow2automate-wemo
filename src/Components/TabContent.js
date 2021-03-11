@@ -108,19 +108,12 @@ class TabContent extends Component {
         }
 
         var key = null;
-        var savedDevices = {};
-        var pairings = {};
         const allow2 = this.props.allow2;
         // get the data set, this plugin only uses one data set
-        Object.entries(this.props.data || {}).forEach(([index, value]) => {
-            console.log('entries', value, index);
-            key = index;
-            savedDevices = value.devices || {};
-            pairings = value.pairings || {};
-        });
 
+        console.log(this.props.data);
         let devices = Object
-            .values(savedDevices)
+            .values(this.props.data.devices || [])
             .sort((a,b) => a.device.device.friendlyName.localeCompare(b.device.device.friendlyName))
             .reduce(function(memo, device) {
 
@@ -132,8 +125,8 @@ class TabContent extends Component {
             }
             return memo;
         }, { supported: [], notSupported: [] });
-        console.log('wemo TabContent', key, devices, pairings);
-
+        console.log('wemo TabContent', key, this.props.data.devices, this.props.data.pairings);
+        let pairings = this.props.data.pairings;
         const plugin = this.props.plugin;
         // const Checkbox = this.props.Checkbox;
         return (

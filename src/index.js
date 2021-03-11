@@ -27,12 +27,13 @@ function plugin(context) {
     };
 
     var devices = null;
-
+    var state = null;
     //
-    // onLoad (optional): called on the main process when this plugin is loaded
+    // onLoad (advisable): called on the main process when this plugin is loaded, the existing configuration is supplied if it exists
     //
-    wemo.onLoad = function() {
-        console.log('wemo.onload');
+    wemo.onLoad = function(loadState) {
+        console.log('wemo.onload', state);
+        state = loadState;
         devices = new Wemo({
             onDeviceUpdate: (data) => {
                 console.log('deviceUpdate', data);
@@ -47,6 +48,14 @@ function plugin(context) {
                 event.sender.send('setBinaryStateResponse', params.UDN, err, response);
             }.bind(this));
         });
+    };
+
+    //
+    // newState (advisable): called on the main process when the persisted state is updated
+    //
+    wemo.newState = function(newState) {
+        state = newState;
+        console.log('wemo.newState', newState);
     };
 
     //
