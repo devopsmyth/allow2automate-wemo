@@ -29,32 +29,14 @@ import Checkbox from './Checkbox';
 // var dialogs = Dialogs({});
 
 class TabContent extends Component {
-    // static propTypes = {
-    //     onLogin: PropTypes.func.isRequired
-    // };
-    //var loadedPlugin = { missing: true, enabled: false };
-
-    // getInitialState: function() {
-    //     // return {
-    //     //     pluginPath: this.props.pluginPath
-    //     // };
-    // },
-
-    toggleCheckbox(device, isChecked) {
-        //this.props.onDeviceActive( device.device.UDN, true );
-        this.props.configurationUpdate();
-        this.props.ipc.send('setBinaryState', {
-            UDN: device.device.UDN,
-            state: isChecked ? 1 : 0
-        });
-    }
 
     constructor(...args) {
         super(...args);
 
-        // this.state = {
-        //     currentTab: 'Allow2AutomateSettingsTab'
-        // };
+        this.state = {
+
+        };
+
         this.props.ipc.on('setBinaryStateResponse', function (event, UDN, err, response) {
             console.log('setBinaryStateResponse', event, UDN, err, response);
             // let device = this.props.devices[UDN];
@@ -67,6 +49,20 @@ class TabContent extends Component {
             // this.props.onDeviceUpdate({[UDN]: device});
         }.bind(this));
     };
+
+    toggleCheckbox(device, isChecked) {
+        //this.props.onDeviceActive( device.device.UDN, true );
+        let newData = Object.assign({}, this.props.data);
+        var newDevices = (this.props.data.devices || {});
+        newDevices[device.device.UDN] = newDevices[device.device.UDN] || {};
+        newDevices[device.device.UDN].active = isChecked;
+        newData.devices = newDevices;
+        this.props.configurationUpdate(newData);
+        this.props.ipc.send('setBinaryState', {
+            UDN: device.device.UDN,
+            state: isChecked ? 1 : 0
+        });
+    }
 
     assign(device, token) {
         //let onPaired = this.props.onPaired;
@@ -111,7 +107,6 @@ class TabContent extends Component {
         const allow2 = this.props.allow2;
         // get the data set, this plugin only uses one data set
 
-        console.log(this.props.data);
         let devices = Object
             .values(this.props.data.devices || [])
             .sort((a,b) => a.device.device.friendlyName.localeCompare(b.device.device.friendlyName))
@@ -125,9 +120,10 @@ class TabContent extends Component {
             }
             return memo;
         }, { supported: [], notSupported: [] });
-        console.log('wemo TabContent', key, this.props.data.devices, this.props.data.pairings);
+        //console.log('wemo TabContent', key, this.props.data.devices, this.props.data.pairings);
         let pairings = this.props.data.pairings;
         const plugin = this.props.plugin;
+        const pluginPath = this.props.pluginPath;
         // const Checkbox = this.props.Checkbox;
         return (
             <div>
@@ -154,7 +150,7 @@ class TabContent extends Component {
                                         <TableCell>
                                             { imageName &&
                                             <img width="40" height="40"
-                                                 src={ path.join(this.props.pluginPath, 'img', imageName + '.png') }/>
+                                                 src={ path.join(pluginPath, 'img', imageName + '.png') }/>
                                             }
                                         </TableCell>
                                         <TableCell>
