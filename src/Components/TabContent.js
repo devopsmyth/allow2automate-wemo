@@ -33,10 +33,6 @@ class TabContent extends Component {
     constructor(...args) {
         super(...args);
 
-        this.state = {
-
-        };
-
         this.props.ipc.on('setBinaryStateResponse', function (event, UDN, err, response) {
             console.log('setBinaryStateResponse', event, UDN, err, response);
             // let device = this.props.devices[UDN];

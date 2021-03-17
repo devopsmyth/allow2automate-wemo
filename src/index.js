@@ -22,9 +22,7 @@ import Wemo from './Wemo';
 
 function plugin(context) {
 
-    var wemo = {
-        test: '3'
-    };
+    var wemo = {};
 
     var devices = null;
     var state = null;
@@ -34,18 +32,29 @@ function plugin(context) {
     wemo.onLoad = function(loadState) {
         console.log('wemo.onload', state);
         state = loadState;
+
         devices = new Wemo({
             onDeviceUpdate: (data) => {
-                console.log('deviceUpdate', data);
-                //deviceUpdate(data);
-                //context.configurationUpdate();
+                console.log('deviceUpdate', data, state);
+                const devices = Object.assign(state.devices, data);
+                state = Object.assign(state, { devices: devices });
+                context.configurationUpdate(state);
             }
         });
         context.ipc.on('setBinaryState', function(event, params) {
-            console.log('setBinaryState', params);
+            console.log('main setBinaryState', params);
             devices.setBinaryState(params.UDN, params.state, function(err, response) {
                 console.log('response:', params.UDN, response);
-                event.sender.send('setBinaryStateResponse', params.UDN, err, response);
+
+                var device = state.devices[params.UDN];
+                device.active = false;
+                if (!err && ( response.BinaryState != undefined )) {
+                    device.state = ( response.BinaryState != '0' );
+                }
+                const devices = Object.assign(state.devices, {[params.UDN]: device} );
+                state = Object.assign(state, { devices: devices });
+                context.configurationUpdate(state);
+
             }.bind(this));
         });
     };
