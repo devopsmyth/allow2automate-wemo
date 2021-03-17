@@ -33,17 +33,17 @@ class TabContent extends Component {
     constructor(...args) {
         super(...args);
 
-        this.props.ipc.on('setBinaryStateResponse', function (event, UDN, err, response) {
-            console.log('setBinaryStateResponse', event, UDN, err, response);
-            // let device = this.props.devices[UDN];
-            // this.props.onDeviceActive(UDN, false);
-            // if (err || ( response.BinaryState == undefined )) {
-            //     return;
-            // }
-            // device.active = false;
-            // device.state = ( response.BinaryState != '0' );
-            // this.props.onDeviceUpdate({[UDN]: device});
-        }.bind(this));
+        // this.props.ipc.on('setBinaryStateResponse', function (event, UDN, err, response) {
+        //     console.log('setBinaryStateResponse', event, UDN, err, response);
+        //     // let device = this.props.devices[UDN];
+        //     // this.props.onDeviceActive(UDN, false);
+        //     // if (err || ( response.BinaryState == undefined )) {
+        //     //     return;
+        //     // }
+        //     // device.active = false;
+        //     // device.state = ( response.BinaryState != '0' );
+        //     // this.props.onDeviceUpdate({[UDN]: device});
+        // }.bind(this));
     };
 
     toggleCheckbox(device, isChecked) {
