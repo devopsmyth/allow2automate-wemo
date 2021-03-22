@@ -61,32 +61,8 @@ class TabContent extends Component {
     }
 
     assign(device, token) {
-        //let onPaired = this.props.onPaired;
-        //function openModal() {
-        const remote = this.props.remote;
-        let win = new remote.BrowserWindow({
-            parent: remote.getCurrentWindow(),
-            modal: true,
-            width: 500,
-            height: 600,
-            minWidth: 500,
-            maxWidth: 500,
-            minHeight: 600,
-            maxHeight: 800
-        });
-
-        //win.loadURL(theUrl);
-        win.loadURL(url.format({
-            pathname: path.join(__dirname, '../pairModal.html'),
-            protocol: 'file:',
-            slashes: true
-        }));
-
-        win.webContents.on('did-finish-load', () => {
-            win.webContents.send('device', { device: device, token: token });
-        });
-
-        //win.webContents.openDevTools();
+        console.log(device, token);
+        this.props.assign(device, token);
     }
 
 
@@ -174,7 +150,7 @@ class TabContent extends Component {
                                             { paired && detail }
                                             { !paired &&
                                             <Button label="Assign"
-                                                    onClick={this.assign.bind(this, device.device, token)}/>
+                                                    onClick={this.assign.bind(this, device.device, token)} >Assign</Button>
                                             }
                                         </TableCell>
                                     </TableRow>
